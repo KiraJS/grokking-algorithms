@@ -1,24 +1,32 @@
-let graph = {};
+const graph = {}
+graph['you'] = ['alice', 'bob', 'claire']
+graph['bob'] = ['anuj', 'peggy']
+graph['alice'] = ['peggy', 'hineo']
+graph['claire'] = ['thom', 'jonny']
+graph['anuj'] = []
+graph['peggy'] = ['alice']
+graph['thom'] = []
+graph['jonny'] = []
+graph['hineo'] = []
 
-graph['you'] = ['alice', 'bob', 'claire'];
-graph['bob'] = ['anuj', 'peggy'];
-graph['alice'] = ['peggy'];
-graph['claire'] = ['thom', 'jonny'];
-graph['anuj'] = [];
-graph['thom'] = [];
-graph['jonny'] = [];
-graph['peggy'] = [];
+const set = new Set()
 
-function breadthfirstsearch(g, first) {
-  let sequence = g[first];
-  while(sequence.length) {
-    let person = sequence.pop();
-    if(person[person.length-1] === 'm') return person + ' is mango seller'
-    else {
-      sequence = sequence.concat(g[person])
+function findSeller(g, first) {
+    let sequence = g[first]
+
+    while(sequence.length) {
+        let person = sequence.pop();
+        if (!set.has(person)){
+            set.add(person)
+            if(person[person.length-1] === 'z') return `${person} is seller`
+            else sequence = sequence.concat(g[person])
+        } else {
+            continue
+        }
     }
-  }
-  return 'There are no mango seller in the sequence';
+    
+    return 'There are no seller'
 }
 
-console.log(breadthfirstsearch(graph, 'you'))
+console.log(findSeller(graph, 'you'))
+console.log(set)
