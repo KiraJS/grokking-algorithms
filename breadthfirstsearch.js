@@ -1,13 +1,12 @@
 const graph = {}
 graph['you'] = ['alice', 'bob', 'claire']
 graph['bob'] = ['anuj', 'peggy']
-graph['alice'] = ['peggy', 'hineo']
+graph['alice'] = ['peggy']
 graph['claire'] = ['thom', 'jonny']
 graph['anuj'] = []
 graph['peggy'] = ['alice']
 graph['thom'] = []
 graph['jonny'] = []
-graph['hineo'] = []
 
 const set = new Set()
 
@@ -15,7 +14,7 @@ function findSeller(g, first) {
     let sequence = g[first]
 
     while(sequence.length) {
-        let person = sequence.pop();
+        let person = sequence.pop(); // can use sequence.shift()
         if (!set.has(person)){
             set.add(person)
             if(person[person.length-1] === 'z') return `${person} is seller`
